@@ -1,0 +1,1 @@
+This is the final OOP project for the first section of JavaScript curriculum. Going to utilize ES6 classes, webpack and NPM.
