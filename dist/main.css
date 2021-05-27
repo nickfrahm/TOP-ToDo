@@ -1,0 +1,150 @@
+/*
+colors:
+#00c853 --main green
+#5efc82 --light green
+#009624 --dark green
+
+#424242 --secondary grey
+#1b1b1b --secondary dark grey
+#6d6d6d --secondary lt grey
+*/
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    font-family: sans-serif;
+}
+
+.header {
+    background-color: #1b1b1b;
+    height: 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header__title {
+    padding: 10px;
+    color: #ffffff;
+}
+
+.text-p {
+    color: #00c853;
+}
+
+.main {
+    display: flex;
+    min-height: calc(100vh - 60px);
+}
+
+.nav {
+    background-color: #424242;
+    width: 280px;
+    min-width: 280px;
+    color: #ffffff;
+}
+
+.toDoSection {
+    background-color: #6d6d6d;
+    width: calc(100vw - 280px);
+    color: #ffffff;
+}
+
+.nav>*,
+.toDoSection>* {
+    width: 80%;
+    margin: 15px auto;
+}
+
+.defaultProjects>* {
+    margin-top: 5px;
+    font-size: 20px;
+    position: relative;
+    cursor: default;
+}
+
+.defaultProjects i {
+    position: absolute;
+    left: 60px;
+}
+
+.today i {
+    left: 62px;
+}
+
+.project {
+    font-size: 14px;
+    margin: 8px 0;
+}
+
+.project:hover {
+    cursor: pointer;
+}
+
+.addProject {
+    width: 50%;
+}
+
+.btn {
+    border: none;
+    border-radius: 2px;
+    background-color: #00c853;
+    color: #fff;
+    font-size: 12px;
+    padding: 5px 0;
+    margin: 10px auto;
+}
+
+.btn:hover {
+    background-color: #009624;
+    cursor: pointer;
+}
+
+.todo {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+    border-radius: 4px;
+}
+
+.todo:hover {
+    background-color: #424242;
+}
+
+.todo>*>i:hover {
+    cursor: pointer;
+}
+
+.leftTodo {
+    width: 30%;
+}
+
+.leftTodo * {
+    display: inline-block;
+}
+
+.rightTodo {
+    margin-right: 15px;
+    text-align: right;
+    width: 30%;
+    position: relative;
+}
+
+.dueDate {
+    margin-right: 10px;
+}
+
+.rightTodo i {
+    position: absolute;
+    top: 2px;
+}
+
+.addTodo {
+    width: 20%;
+}
