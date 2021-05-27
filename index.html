@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+        integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+    <title>DoIt!</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1 class="header__title">Do<span class="text-p">It!</span></h1>
+        </div>
+        <div class="main">
+            <nav class="nav">
+                <div class="defaultProjects">
+                    <p class="home text-s"><i class="fas fa-home text-p"></i>Home</p>
+                    <p class="today text-s"><i class="far fa-calendar-times text-p"></i>Today</p>
+                </div>
+                <div class="userProjects">
+                    <h2 class="projects__header">Projects</h2>
+                    <p class="project">Pack For Trip</p>
+                    <button class="addProject btn">Add Project</button>
+                </div>
+            </nav>
+            <section class="toDoSection">
+                <div class="toDoContainer">
+                    <h2 class="toDoProject">Today</h2>
+                    <div class="todos">
+                        <div class="todo">
+                            <div class="leftTodo">
+                                <i class="far fa-circle"></i>
+                                <p class="todoInfo">Work on project</p>
+                            </div>
+                            <div class="rightTodo">
+                                <input class="dueDate" type="date" name="dueDate">
+                                <i class="fas fa-trash-alt text-p"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="addTodo btn">Add item</button>
+                </div>
+            </section>
+        </div>
+    </div>
+    <script src="main.js"></script>
+</body>
+
+</html>
