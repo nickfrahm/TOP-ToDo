@@ -1,1 +1,3 @@
-console.log("hi");
+import {UI} from './modules/UI'
+
+UI.loadPage();
