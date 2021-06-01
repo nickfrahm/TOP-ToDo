@@ -1,35 +1,18 @@
 import {ToDo} from './ToDo';
 import {Project} from './Project'
 import {Storage} from './Storage'
+import { ProjectList } from './ProjectList';
+import {Mask} from './Mask';
+import {Modal} from './Modal';
 
 export class UI {
-    static loadPage() {
-        UI.addEvListeners();
-        const projects = Storage.getProjectsFromStorage();
-        console.log(projects);
-        UI.writeProjectsToScreen(projects);
-        UI.writeToDosToScreen();
-    }
-
-    static writeProjectsToScreen(projects) {
-        projects.forEach(project => {
-            const p = document.createElement("p");
-            console.log(project.name)
-            p.textContent = project.name;
-            document.querySelector(".projects__header").after(p);
-        })
-    }
-
-    static addEvListeners() {
-        document.querySelector(".addProject").addEventListener("click", () => {
-            Project.addProject();
-            UI.addProjectToList();
-        });
-
-        document.querySelector(".addTodo").addEventListener("click", () => {
-            
-        });
-
+    static addTodoForm() {
+        document.querySelector(".main").appendChild(Mask());
+        document.getElementById("mask").appendChild(Modal());
+        console.log("addTodoForm")
     }
     
+    static addEvents() {
+        document.querySelector(".addTodo").addEventListener("click", UI.addTodoForm);
+    }
 }
