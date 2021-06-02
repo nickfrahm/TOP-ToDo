@@ -1,0 +1,30 @@
+Things needed:
+ToDo class
+  title
+  description
+  due date
+  priority
+
+Project class
+  name
+  list of todos
+
+ProjectList class
+  list of projects
+
+UI class
+  add a project to list
+  remove a project from list
+  add a todo to the list
+  remove a todo from the list
+  call a modal
+  close a modal
+  add input box to project list to name a project
+
+Storage class
+  save project list to storage
+  retrieve project list from storage
+
+Controller class
+  add event handlers
+  
