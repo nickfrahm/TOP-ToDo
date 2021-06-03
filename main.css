@@ -122,11 +122,15 @@ colors:
 }
 
 .leftTodo {
-    width: 30%;
+    width: 50%;
 }
 
 .leftTodo * {
     display: inline-block;
+}
+
+.leftTodo p {
+    margin-left: 10px;
 }
 
 .rightTodo {
@@ -179,5 +183,14 @@ colors:
 form > * {
     display: block;
     width: 60%;
-    margin: 10px auto;
+    margin: auto;
+}
+
+.formLabel {
+    margin: 10px auto 0 auto;
+}
+
+.modal h2 {
+    width: 60%;
+    margin: auto;
 }
