@@ -1,3 +1,8 @@
+import { Project } from "./Project";
+import { ProjectList } from "./ProjectList";
+import { ToDo } from "./ToDo";
+import { UI } from "./UI";
+
 export const todoForm = () => {
   const todoForm = document.createElement("div");
   todoForm.className = "modal";
@@ -49,13 +54,25 @@ export const todoForm = () => {
   addBtn.textContent = "Add";
   addBtn.id = "addTodo";
   addBtn.className = "btn addTodo";
+  addBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    const newTask = new ToDo(
+        document.getElementById("title").value,
+        document.getElementById("description").value,
+        document.getElementById("duedate").value,
+        document.getElementById("priority").value
+    );
+    UI.addToDoToList(newTask);
+    UI.removeModal();
 
+    if (UI.getActiveProject() !== "Home") {
+        //to do: add logic to add task to custom project
+    } else {
+        ProjectList.projects.find(project => project.name === "home").addTaskToList(newTask);
+    }
+  })
   form.appendChild(addBtn);
 
   return todoForm;
 };
 
-/*
-form
-    <
-*/
