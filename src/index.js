@@ -1,3 +1,6 @@
 import {UI} from './modules/UI'
 
-UI.addEvents();
+document.addEventListener("DOMContentLoaded", () => {
+    UI.addEvents();
+    UI.defaultActiveProject();
+});
