@@ -161,11 +161,23 @@ colors:
 }
 
 .modal {
-    z-index: 1001;
-    margin: 20px auto;
+    background-color: #f4f4f4;
+    margin: 10% auto;
+    padding: 20px;
     width: 70%;
+    z-index: 1001;
 }
 
 .hide {
     display: none;
+}
+
+.activeProject {
+    color: #00c853;
+}
+
+form > * {
+    display: block;
+    width: 60%;
+    margin: 10px auto;
 }
