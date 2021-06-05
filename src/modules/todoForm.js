@@ -56,20 +56,28 @@ export const todoForm = () => {
   addBtn.className = "btn addTodo";
   addBtn.addEventListener("click", (e) => {
     e.preventDefault();
+    const newTitle =document.getElementById("title").value
     const newTask = new ToDo(
-        document.getElementById("title").value,
+        newTitle,
         document.getElementById("description").value,
         document.getElementById("duedate").value,
         document.getElementById("priority").value
     );
-    UI.addToDoToList(newTask);
-    UI.removeModal();
-
-    if (UI.getActiveProject() !== "Home") {
-        //to do: add logic to add task to custom project
+    if (Project.toDoExistsInProject(newTitle) || newTitle.trim() === "") {
+        //add alert and prevent add.
     } else {
-        ProjectList.projects.find(project => project.name === "home").addTaskToList(newTask);
+        UI.addToDoToList(newTask);
+        UI.removeModal();
+    
+        if (UI.getActiveProject() !== "Home") {
+            //to do: add logic to add task to custom project
+            
+            //to do: add logic to add task to home as well.
+        } else {
+            ProjectList.projects.find(project => project.name === "home").addTaskToList(newTask);
+        }
     }
+
   })
   form.appendChild(addBtn);
 
