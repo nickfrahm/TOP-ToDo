@@ -67,6 +67,7 @@ export const todoForm = () => {
         //add alert and prevent add.
     } else {
         UI.addToDoToList(newTask);
+        UI.addTodoItemEvents(newTask);
         UI.removeModal();
     
         if (UI.getActiveProject() !== "Home") {

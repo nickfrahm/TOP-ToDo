@@ -3,7 +3,7 @@ import { ProjectList } from './modules/ProjectList';
 import {UI} from './modules/UI'
 
 document.addEventListener("DOMContentLoaded", () => {
-    UI.addEvents();
+    UI.addMainEvents();
     UI.defaultActiveProject();
     
     //to do: add logic to create the home project with every task in all local storage projects
