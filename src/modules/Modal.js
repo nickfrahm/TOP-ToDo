@@ -1,10 +1,10 @@
 import { todoForm } from "./todoForm";
+import { UI } from "./UI";
 
-export const Modal = (modalType) => {
-  const Mask = document.createElement("div");
-  console.log("clicked");
+export const Modal = (modalType, todo) => {
   if (document.getElementById("mask")) {
     document.getElementById("mask").classList.toggle("hide");
+    UI.populateTodoForm(todo);
   } else {
     const Mask = document.createElement("div");
     Mask.classList.add("mask");
@@ -12,8 +12,8 @@ export const Modal = (modalType) => {
     Mask.addEventListener("click", removeMask);
 
     if (modalType === "todo") {
-      Mask.appendChild(todoForm());
-    }
+      Mask.appendChild(todoForm(todo));
+    } 
 
     return Mask;
   }

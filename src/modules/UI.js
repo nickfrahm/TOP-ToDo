@@ -75,5 +75,24 @@ export class UI {
     });
 
     //todo: add edit functionality
+    todoItem.addEventListener("click", (e) => {
+      if (e.target.id ===  todo.title.toLowerCase()) {
+        document.querySelector(".main").appendChild(Modal("todo", todo));
+      }
+    })
+  }
+
+  static populateTodoForm(todo) {
+    const title = document.getElementById("title");
+    title.value = todo.title;
+
+    const desc = document.getElementById("description");
+    desc.value = todo.getDescription();
+    
+    const dueDate = document.getElementById("duedate");
+    dueDate.value = todo.getDueDate();
+    
+    const priority = document.getElementById("priority");
+    priority.value = todo.getPriority();
   }
 }
