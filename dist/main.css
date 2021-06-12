@@ -153,6 +153,7 @@ colors:
     width: 20%;
 }
 
+/*
 .mask {
     position: fixed;
     top: 0;
@@ -164,13 +165,14 @@ colors:
     overflow: auto;
 }
 
+
 .modal {
     background-color: #f4f4f4;
     margin: 10% auto;
     padding: 20px;
     width: 70%;
     z-index: 1001;
-}
+}*/
 
 .hide {
     display: none;
