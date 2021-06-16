@@ -27,7 +27,12 @@ export class UI {
   }
 
   static displayAllToDos() {
-    //need to do
+    const taskList = ProjectList.findProjectTaskList(ProjectList.activeProject);
+
+    taskList.forEach((todo) => {
+      const todoItem = UI.createToDoItem(todo);
+      document.querySelector(".todos").appendChild(todoItem);
+    });
   }
 
   static addInitialEventListeners() {
@@ -111,6 +116,22 @@ export class UI {
       addBtn.className = "btn addTodo";
       addBtn.addEventListener("click", (e) => {
         e.preventDefault();
+        //grab the information from the form and store it in new todo
+        const newTodo = new ToDo(
+          document.getElementById("title").value,
+          document.getElementById("description").value,
+          document.getElementById("duedate").value,
+          document.getElementById("priority").value
+        );
+        //append new todo to screen with title as id
+        if (!newTodo.checkIfAlreadyExistsInCurrentTaskList() && newTodo.title !== "") {
+          ProjectList.getActiveProject().addTaskToList(newTodo);
+          UI.clearToDos();
+          UI.displayAllToDos();
+          UI.toggleAddNewTodoBtn();
+        } else {
+          alert("Please add a unique title.")
+        }
       });
       form.appendChild(addBtn);
     } else if (mode === "update") {
@@ -125,8 +146,30 @@ export class UI {
     }
 
     if (!document.getElementById("todoForm")) {
-      document.getElementById("addTodo").classList.toggle("hide");
+      UI.toggleAddNewTodoBtn();
       document.querySelector(".todos").appendChild(todoForm);
     }
+  }
+
+  static createToDoItem = (todo) => {
+    const todoItem = document.createElement("div");
+    todoItem.id = todo.title;
+    todoItem.className = "todo";
+    todoItem.innerHTML = 
+    `
+    <div class="leftTodo">
+      <i class="far fa-circle"></i>
+      <p class="todoInfo">${todo.title}</p>
+    </div>
+    <div class="rightTodo">
+      <i class="fas fa-trash-alt text-p"></i>
+    </div>
+      `;
+
+      return todoItem;
+  }
+
+  static toggleAddNewTodoBtn() {
+    document.getElementById("addTodo").classList.toggle("hide");
   }
 }

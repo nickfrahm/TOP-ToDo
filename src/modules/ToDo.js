@@ -1,3 +1,5 @@
+import { ProjectList } from "./ProjectList";
+
 export class ToDo {
     constructor(title, description, dueDate, priority) {
         this.title = title;
@@ -36,5 +38,17 @@ export class ToDo {
 
     setPriority(priority) {
         this.priority = priority;
+    }
+
+    checkIfAlreadyExistsInCurrentTaskList() {
+        const taskList = ProjectList.findProjectTaskList(ProjectList.activeProject);
+
+        if (taskList.find(todo => {
+            return todo.title === this.title;
+        })) {
+            return true;
+        }
+
+        return false;
     }
 }

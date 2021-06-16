@@ -22,4 +22,5 @@ export class Project {
     const i = this.tasks.map((task) => {return task.title}).indexOf(todo.getTitle().toLowerCase());
     this.tasks.splice(i, 1);
   }
+
 }
