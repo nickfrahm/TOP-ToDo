@@ -156,15 +156,20 @@ export class UI {
     todoItem.id = todo.title;
     todoItem.className = "todo";
     todoItem.innerHTML = 
-    `
-    <div class="leftTodo">
+    `<div class="leftTodo">
       <i class="far fa-circle"></i>
       <p class="todoInfo">${todo.title}</p>
     </div>
     <div class="rightTodo">
       <i class="fas fa-trash-alt text-p"></i>
-    </div>
-      `;
+    </div>`;
+    todoItem.addEventListener('click', (e) => {
+      if (e.target.classList.contains("fa-circle") || e.target.classList.contains("fa-trash-alt")) {
+        const proj = ProjectList.getActiveProject();
+        proj.removeTask(todo);
+        e.target.parentNode.parentNode.remove();
+      }
+    });
 
       return todoItem;
   }
