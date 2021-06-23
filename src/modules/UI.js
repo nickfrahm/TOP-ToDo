@@ -124,14 +124,7 @@ export class UI {
           document.getElementById("priority").value
         );
         //append new todo to screen with title as id
-        if (!newTodo.checkIfAlreadyExistsInCurrentTaskList() && newTodo.title !== "") {
-          ProjectList.getActiveProject().addTaskToList(newTodo);
-          UI.clearToDos();
-          UI.displayAllToDos();
-          UI.toggleAddNewTodoBtn();
-        } else {
-          alert("Please add a unique title.")
-        }
+        UI.handleAddUpdateBtnPress(mode, newTodo);
       });
       form.appendChild(addBtn);
     } else if (mode === "update") {
@@ -141,6 +134,12 @@ export class UI {
       addBtn.className = "btn addTodo";
       addBtn.addEventListener("click", (e) => {
         e.preventDefault();
+        UI.handleAddUpdateBtnPress(mode, toDo, [
+          document.getElementById("title").value,
+          document.getElementById("description").value,
+          document.getElementById("duedate").value,
+          document.getElementById("priority").value,
+        ]);
       });
       form.appendChild(addBtn);
     }
@@ -148,6 +147,9 @@ export class UI {
     if (!document.getElementById("todoForm")) {
       UI.toggleAddNewTodoBtn();
       document.querySelector(".todos").appendChild(todoForm);
+      if (mode === "update") {
+        UI.populateTodoFields(toDo);
+      }
     }
   }
 
@@ -155,23 +157,56 @@ export class UI {
     const todoItem = document.createElement("div");
     todoItem.id = todo.title;
     todoItem.className = "todo";
-    todoItem.innerHTML = 
-    `<div class="leftTodo">
+    todoItem.innerHTML = `<div class="leftTodo">
       <i class="far fa-circle"></i>
       <p class="todoInfo">${todo.title}</p>
     </div>
     <div class="rightTodo">
       <i class="fas fa-trash-alt text-p"></i>
     </div>`;
-    todoItem.addEventListener('click', (e) => {
-      if (e.target.classList.contains("fa-circle") || e.target.classList.contains("fa-trash-alt")) {
+    todoItem.addEventListener("click", (e) => {
+      if (
+        e.target.classList.contains("fa-circle") ||
+        e.target.classList.contains("fa-trash-alt")
+      ) {
         const proj = ProjectList.getActiveProject();
         proj.removeTask(todo);
         e.target.parentNode.parentNode.remove();
       }
+
+      if (
+        e.target.classList.contains("todoInfo") ||
+        e.target.classList.contains("todo") ||
+        e.target.classList.contains("leftTodo")
+      ) {
+        UI.clearToDos();
+        UI.todoForm("update", todo);
+      }
     });
 
-      return todoItem;
+    return todoItem;
+  };
+
+  static populateTodoFields(todo) {
+    document.getElementById("title").value = todo.getTitle();
+    document.getElementById("description").value = todo.getDescription();
+    document.getElementById("duedate").value = todo.getDueDate();
+    document.getElementById("priority").value = todo.getPriority();
+  }
+
+  static handleAddUpdateBtnPress(mode, todo, details) {
+    if (!todo.checkIfAlreadyExistsInCurrentTaskList() && todo.title !== "") {
+      if (mode === "add") {
+        ProjectList.getActiveProject().addTaskToList(todo);
+      } else if (mode === "update") {
+        todo.update(details[0],details[1],details[2],details[3],);
+      }
+      UI.clearToDos();
+      UI.displayAllToDos();
+      UI.toggleAddNewTodoBtn();
+    } else {
+      alert("Please add a unique title.");
+    }
   }
 
   static toggleAddNewTodoBtn() {

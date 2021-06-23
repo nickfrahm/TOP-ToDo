@@ -17,7 +17,7 @@ export class ToDo {
     }
 
     getDescription() {
-        return this.title;
+        return this.description;
     }
 
     setDescription(desc) {
@@ -25,7 +25,7 @@ export class ToDo {
     }
     
     getDueDate() {
-        return this.title;
+        return this.dueDate;
     }
 
     setDueDate(date) {
@@ -33,7 +33,7 @@ export class ToDo {
     }
     
     getPriority() {
-        return this.title;
+        return this.priority;
     }
 
     setPriority(priority) {
@@ -50,5 +50,12 @@ export class ToDo {
         }
 
         return false;
+    }
+
+    update(t, d, dd, p) {
+        this.setTitle(t);
+        this.setDescription(d);
+        this.setDueDate(dd);
+        this.setPriority(p);
     }
 }
