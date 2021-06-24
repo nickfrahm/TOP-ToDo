@@ -1,61 +1,75 @@
 import { ProjectList } from "./ProjectList";
 
 export class ToDo {
-    constructor(title, description, dueDate, priority) {
-        this.title = title;
-        this.description = description;
-        this.dueDate = dueDate;
-        this.priority = priority;
-    }
+  constructor(title, description, dueDate, priority) {
+    this.title = title;
+    this.description = description;
+    this.dueDate = dueDate;
+    this.priority = priority;
+  }
 
-    getTitle() {
-        return this.title;
-    }
+  getTitle() {
+    return this.title;
+  }
 
-    setTitle(title) {
-        this.title = title;
-    }
+  setTitle(title) {
+    this.title = title;
+  }
 
-    getDescription() {
-        return this.description;
-    }
+  getDescription() {
+    return this.description;
+  }
 
-    setDescription(desc) {
-        this.description = desc;
-    }
-    
-    getDueDate() {
-        return this.dueDate;
-    }
+  setDescription(desc) {
+    this.description = desc;
+  }
 
-    setDueDate(date) {
-        this.dueDate = date;
-    }
-    
-    getPriority() {
-        return this.priority;
-    }
+  getDueDate() {
+    return this.dueDate;
+  }
 
-    setPriority(priority) {
-        this.priority = priority;
-    }
+  setDueDate(date) {
+    this.dueDate = date;
+  }
 
-    checkIfAlreadyExistsInCurrentTaskList() {
-        const taskList = ProjectList.findProjectTaskList(ProjectList.activeProject);
+  getPriority() {
+    return this.priority;
+  }
 
-        if (taskList.find(todo => {
-            return todo.title === this.title;
-        })) {
+  setPriority(priority) {
+    this.priority = priority;
+  }
+
+  checkIfAlreadyExistsInCurrentTaskList(newTitle) {
+    const taskList = ProjectList.findProjectTaskList(ProjectList.activeProject);
+
+    if (!newTitle) {
+      if (
+        taskList.find((todo) => {
+          return todo.title === this.title;
+        })
+      ) {
+        return true;
+      }
+
+      return false;
+    } else {
+        if (
+            taskList.find((todo) => {
+              return todo.title === newTitle;
+            })
+          ) {
             return true;
-        }
-
-        return false;
+          }
+    
+          return false;
     }
+  }
 
-    update(t, d, dd, p) {
-        this.setTitle(t);
-        this.setDescription(d);
-        this.setDueDate(dd);
-        this.setPriority(p);
-    }
+  update(t, d, dd, p) {
+    this.setTitle(t);
+    this.setDescription(d);
+    this.setDueDate(dd);
+    this.setPriority(p);
+  }
 }

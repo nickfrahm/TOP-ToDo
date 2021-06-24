@@ -195,6 +195,33 @@ export class UI {
   }
 
   static handleAddUpdateBtnPress(mode, todo, details) {
+    let success = false;
+
+    if (
+      mode === "add" &&
+      !todo.checkIfAlreadyExistsInCurrentTaskList() &&
+      todo.title !== ""
+    ) {
+      ProjectList.getActiveProject().addTaskToList(todo);
+      success = true;
+    } else if (
+      mode === "update" &&
+      !todo.checkIfAlreadyExistsInCurrentTaskList(details[0]) &&
+      details[0] !== ""
+    ) {
+      todo.update(details[0], details[1], details[2], details[3]);
+      success = true;
+    }
+
+    if (!success) {
+      alert("Please use a unique title.");
+    } else {
+      UI.clearToDos();
+      UI.displayAllToDos();
+      UI.toggleAddNewTodoBtn();
+    }
+
+    /*
     if (!todo.checkIfAlreadyExistsInCurrentTaskList() && todo.title !== "") {
       if (mode === "add") {
         ProjectList.getActiveProject().addTaskToList(todo);
@@ -206,7 +233,7 @@ export class UI {
       UI.toggleAddNewTodoBtn();
     } else {
       alert("Please add a unique title.");
-    }
+    }*/
   }
 
   static toggleAddNewTodoBtn() {
