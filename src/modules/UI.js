@@ -26,7 +26,7 @@ export class UI {
     }
   }
 
-  static displayAllToDos() {
+  static displayProjectTodos() {
     const taskList = ProjectList.findProjectTaskList(ProjectList.activeProject);
 
     taskList.forEach((todo) => {
@@ -49,7 +49,7 @@ export class UI {
 
     const homeList = document.getElementById("home");
     homeList.addEventListener("click", () => {
-      UI.displayAllToDos();
+      UI.displayProjectTodos();
       UI.changeProjectNameInToDoSection("home");
       UI.highlightActiveProjectName("home");
     });
@@ -223,7 +223,7 @@ export class UI {
       alert("Please use a unique title.");
     } else {
       UI.clearToDos();
-      UI.displayAllToDos();
+      UI.displayProjectTodos();
       UI.toggleAddNewTodoBtn();
     }
 
@@ -235,7 +235,7 @@ export class UI {
         todo.update(details[0],details[1],details[2],details[3],);
       }
       UI.clearToDos();
-      UI.displayAllToDos();
+      UI.displayProjectTodos();
       UI.toggleAddNewTodoBtn();
     } else {
       alert("Please add a unique title.");
@@ -244,5 +244,23 @@ export class UI {
 
   static toggleAddNewTodoBtn() {
     document.getElementById("addTodo").classList.toggle("hide");
+  }
+
+  static toggleAddProjectBtn() {
+    document.getElementById("addProject").classList.toggle("hide");
+  }
+
+  static addProjectForm() {
+    const projectContainer = document.createElement("div");
+    projectContainer.className.add("projectContainer");
+    
+    const projName = document.createElement("input");
+    projName.className.add("projectInput");
+
+    const add = document.createElement("button");
+    add.className.add("btn");
+    add.textContent = "Add";
+    add.id = "newProj";
+    //todo: add event listeners
   }
 }
