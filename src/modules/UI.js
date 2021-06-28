@@ -135,7 +135,7 @@ export class UI {
       addBtn.addEventListener("click", (e) => {
         e.preventDefault();
         UI.handleAddUpdateBtnPress(mode, toDo, [
-          document.getElementById("title").value,
+          document.getElementById("title").value.trim(),
           document.getElementById("description").value,
           document.getElementById("duedate").value,
           document.getElementById("priority").value,
@@ -204,13 +204,19 @@ export class UI {
     ) {
       ProjectList.getActiveProject().addTaskToList(todo);
       success = true;
-    } else if (
-      mode === "update" &&
-      !todo.checkIfAlreadyExistsInCurrentTaskList(details[0]) &&
-      details[0] !== ""
-    ) {
-      todo.update(details[0], details[1], details[2], details[3]);
-      success = true;
+    } else if (mode === "update") {
+      if (todo.getTitle() !== details[0]) {
+        if (
+          !todo.checkIfAlreadyExistsInCurrentTaskList(details[0].trim()) &&
+          details[0] !== ""
+        ) {
+          todo.update(details[0].trim(), details[1], details[2], details[3]);
+          success = true;
+        } 
+      } else {
+        todo.update(details[0], details[1], details[2], details[3]);
+        success = true;
+      }
     }
 
     if (!success) {
