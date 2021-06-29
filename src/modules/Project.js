@@ -23,4 +23,15 @@ export class Project {
     this.tasks.splice(i, 1);
   }
 
+  checkIfAlreadyExistsInProjectList() {
+    if (
+      ProjectList.projects.find((project) => {
+        return project.name === this.name;
+      })
+    ) {
+      return true;
+    }
+
+    return false;
+  }
 }

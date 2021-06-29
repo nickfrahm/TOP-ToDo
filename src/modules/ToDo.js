@@ -54,15 +54,14 @@ export class ToDo {
 
       return false;
     } else {
-        if (
-            taskList.find((todo) => {
-              return todo.title === newTitle;
-            })
-          ) {
-            return true;
-          }
-    
-          return false;
+      if (
+        taskList.find((todo) => {
+          return todo.title === newTitle;
+        })
+      ) {
+        return true;
+      }
+      return false;
     }
   }
 

@@ -20,4 +20,8 @@ export class ProjectList {
         })
     }
 
+    static addProject(proj) {
+        ProjectList.projects.push(proj);
+    }
+
 }

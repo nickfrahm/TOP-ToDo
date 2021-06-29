@@ -38,7 +38,8 @@ export class UI {
   static addInitialEventListeners() {
     const addProjectBtn = document.getElementById("addProject");
     addProjectBtn.addEventListener("click", () => {
-      //
+      UI.toggleAddProjectBtn();
+      UI.addProjectForm();
     });
 
     const addToDoBtn = document.getElementById("addTodo");
@@ -212,7 +213,7 @@ export class UI {
         ) {
           todo.update(details[0].trim(), details[1], details[2], details[3]);
           success = true;
-        } 
+        }
       } else {
         todo.update(details[0], details[1], details[2], details[3]);
         success = true;
@@ -252,15 +253,64 @@ export class UI {
 
   static addProjectForm() {
     const projectContainer = document.createElement("div");
-    projectContainer.className.add("projectContainer");
-    
+    projectContainer.classList.add("projectContainer");
+
     const projName = document.createElement("input");
-    projName.className.add("projectInput");
+    projName.classList.add("projectInput");
+    projectContainer.appendChild(projName);
 
     const add = document.createElement("button");
-    add.className.add("btn");
+    add.classList.add("btn");
     add.textContent = "Add";
     add.id = "newProj";
-    //todo: add event listeners
+    add.addEventListener("click", (e) => {
+      e.preventDefault();
+      const newProject = new Project(
+        document.querySelector(".projectInput").value.trim()
+      );
+      if (
+        !newProject.checkIfAlreadyExistsInProjectList() &&
+        newProject.getName() !== "" &&
+        newProject.getName().toLowerCase() !== "home" &&
+        newProject.getName().toLowerCase() !== "default"
+      ) {
+        ProjectList.addProject(newProject);
+        UI.clearProjectUIList();
+        UI.writeProjectsToUI();
+        UI.toggleAddProjectBtn();
+        console.log(ProjectList.projects);
+      } else {
+        alert("project exists or is blank");
+      }
+    });
+    projectContainer.appendChild(add);
+
+    if (!document.querySelector(".projectContainer")) {
+      document.querySelector(".projects").appendChild(projectContainer);
+    }
+  }
+
+  static writeProjectsToUI() {
+    const projects = [...ProjectList.projects];
+    projects.forEach((proj) => {
+      if (proj.getName() !== "default") {
+        const project = UI.createProjectElement(proj);
+        document.querySelector(".projects").appendChild(project);
+      }
+    });
+  }
+
+  static clearProjectUIList() {
+    const projects = document.querySelector(".projects").children;
+    Array.from(projects).forEach((child) => child.remove());
+  }
+
+  static createProjectElement(proj) {
+    const project = document.createElement("p")
+    project.className = "project";
+    project.id = proj.getName();
+    project.textContent = proj.getName();
+
+    return project;
   }
 }
