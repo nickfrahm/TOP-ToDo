@@ -1,3 +1,5 @@
+import { Project } from "./Project";
+
 export class ProjectList {
     static activeProject = "default";
     static projects = [];
@@ -24,4 +26,7 @@ export class ProjectList {
         ProjectList.projects.push(proj);
     }
 
+    static setActiveProject(name) {
+        ProjectList.activeProject = name;
+    }
 }

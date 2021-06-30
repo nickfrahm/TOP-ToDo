@@ -19,9 +19,14 @@ export class UI {
   }
 
   static highlightActiveProjectName(name) {
-    if (name === "default" || name === "home") {
-      document.getElementById("home").classList.add("activeProject");
+    if (!document.querySelector(".activeProject")) {
+      if (name === "default" || name === "home") {
+        document.getElementById("home").classList.add("activeProject");
+      } else {
+        document.getElementById(name).classList.add("activeProject");
+      } 
     } else {
+      document.querySelector(".activeProject").classList.remove("activeProject");
       document.getElementById(name).classList.add("activeProject");
     }
   }
@@ -227,20 +232,6 @@ export class UI {
       UI.displayProjectTodos();
       UI.toggleAddNewTodoBtn();
     }
-
-    /*
-    if (!todo.checkIfAlreadyExistsInCurrentTaskList() && todo.title !== "") {
-      if (mode === "add") {
-        ProjectList.getActiveProject().addTaskToList(todo);
-      } else if (mode === "update") {
-        todo.update(details[0],details[1],details[2],details[3],);
-      }
-      UI.clearToDos();
-      UI.displayProjectTodos();
-      UI.toggleAddNewTodoBtn();
-    } else {
-      alert("Please add a unique title.");
-    }*/
   }
 
   static toggleAddNewTodoBtn() {
@@ -278,7 +269,13 @@ export class UI {
         UI.clearProjectUIList();
         UI.writeProjectsToUI();
         UI.toggleAddProjectBtn();
-        console.log(ProjectList.projects);
+        UI.clearToDos();
+        UI.highlightActiveProjectName(newProject.name);
+        ProjectList.setActiveProject(newProject.name);
+        UI.changeProjectNameInToDoSection(ProjectList.activeProject);
+        if (document.getElementById("addTodo").classList.contains("hide")) {
+          UI.toggleAddNewTodoBtn();
+        }
       } else {
         alert("project exists or is blank");
       }
@@ -306,10 +303,20 @@ export class UI {
   }
 
   static createProjectElement(proj) {
-    const project = document.createElement("p")
+    const project = document.createElement("p");
     project.className = "project";
     project.id = proj.getName();
     project.textContent = proj.getName();
+    project.addEventListener("click", () => {
+      UI.clearToDos();
+      UI.highlightActiveProjectName(proj.getName());
+      ProjectList.setActiveProject(proj.getName());
+      UI.changeProjectNameInToDoSection(ProjectList.activeProject);
+      UI.displayProjectTodos();
+      if (document.getElementById("addTodo").classList.contains("hide")) {
+        UI.toggleAddNewTodoBtn();
+      }
+    })
 
     return project;
   }
