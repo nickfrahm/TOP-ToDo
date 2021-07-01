@@ -55,15 +55,22 @@ export class UI {
 
     const homeList = document.getElementById("home");
     homeList.addEventListener("click", () => {
-      UI.displayProjectTodos();
-      UI.changeProjectNameInToDoSection("home");
+      UI.clearToDos();
       UI.highlightActiveProjectName("home");
+      ProjectList.setActiveProject("default");
+      UI.changeProjectNameInToDoSection(ProjectList.activeProject);
+      UI.displayProjectTodos();
+      //maybe in the future: allow display of every To Do.
+      if (document.getElementById("addTodo").classList.contains("hide")) {
+        UI.toggleAddNewTodoBtn();
+      }
     });
 
-    const todayList = document.getElementById("today");
+    //maybe: display anything due today.
+    /*const todayList = document.getElementById("today");
     todayList.addEventListener("click", () => {
       //
-    });
+    });*/
   }
 
   static clearToDos() {
