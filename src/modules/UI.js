@@ -134,7 +134,8 @@ export class UI {
           document.getElementById("title").value,
           document.getElementById("description").value,
           document.getElementById("duedate").value,
-          document.getElementById("priority").value
+          document.getElementById("priority").value,
+          ProjectList.activeProject
         );
         //append new todo to screen with title as id
         UI.handleAddUpdateBtnPress(mode, newTodo);
@@ -151,7 +152,7 @@ export class UI {
           document.getElementById("title").value.trim(),
           document.getElementById("description").value,
           document.getElementById("duedate").value,
-          document.getElementById("priority").value,
+          document.getElementById("priority").value
         ]);
       });
       form.appendChild(addBtn);
@@ -182,7 +183,7 @@ export class UI {
         e.target.classList.contains("fa-circle") ||
         e.target.classList.contains("fa-trash-alt")
       ) {
-        const proj = ProjectList.getActiveProject();
+        const proj = ProjectList.getProjectToRemove(todo.getParent());
         proj.removeTask(todo);
         e.target.parentNode.parentNode.remove();
       }

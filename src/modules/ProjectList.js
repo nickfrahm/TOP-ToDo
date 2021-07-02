@@ -22,6 +22,12 @@ export class ProjectList {
         })
     }
 
+    static getProjectToRemove(project) {
+        return ProjectList.projects.find((proj) => {
+            return proj.name.toLowerCase() === project.toLowerCase();
+        })
+    }
+
     static addProject(proj) {
         ProjectList.projects.push(proj);
     }

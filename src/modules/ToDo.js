@@ -1,11 +1,12 @@
 import { ProjectList } from "./ProjectList";
 
 export class ToDo {
-  constructor(title, description, dueDate, priority) {
+  constructor(title, description, dueDate, priority, parent) {
     this.title = title;
     this.description = description;
     this.dueDate = dueDate;
     this.priority = priority;
+    this.parent = parent;
   }
 
   getTitle() {
@@ -38,6 +39,14 @@ export class ToDo {
 
   setPriority(priority) {
     this.priority = priority;
+  }
+
+  getParent() {
+    return this.parent;
+  }
+
+  setParent(parent) {
+    this.parent = parent;
   }
 
   checkIfAlreadyExistsInCurrentTaskList(newTitle) {
