@@ -31,8 +31,8 @@ export class UI {
     }
   }
 
-  static displayProjectTodos() {
-    const taskList = ProjectList.findProjectTaskList(ProjectList.activeProject);
+  static displayProjectTodos(name = ProjectList.activeProject) {
+    const taskList = ProjectList.findProjectTaskList(name);
 
     taskList.forEach((todo) => {
       const todoItem = UI.createToDoItem(todo);
@@ -59,8 +59,7 @@ export class UI {
       UI.highlightActiveProjectName("home");
       ProjectList.setActiveProject("default");
       UI.changeProjectNameInToDoSection(ProjectList.activeProject);
-      UI.displayProjectTodos();
-      //maybe in the future: allow display of every To Do.
+      UI.displayAllTodos();
       if (document.getElementById("addTodo").classList.contains("hide")) {
         UI.toggleAddNewTodoBtn();
       }
@@ -183,7 +182,7 @@ export class UI {
         e.target.classList.contains("fa-circle") ||
         e.target.classList.contains("fa-trash-alt")
       ) {
-        const proj = ProjectList.getProjectToRemove(todo.getParent());
+        const proj = ProjectList.getProject(todo.getParent());
         proj.removeTask(todo);
         e.target.parentNode.parentNode.remove();
       }
@@ -237,7 +236,11 @@ export class UI {
       alert("Please use a unique title.");
     } else {
       UI.clearToDos();
-      UI.displayProjectTodos();
+      if (ProjectList.activeProject === 'home' || ProjectList.activeProject === 'default') {
+        UI.displayAllTodos();
+      } else {
+        UI.displayProjectTodos();
+      }
       UI.toggleAddNewTodoBtn();
     }
   }
@@ -327,5 +330,13 @@ export class UI {
     })
 
     return project;
+  }
+
+  static displayAllTodos() {
+    const projectNames = ProjectList.getProjectNames();
+
+    projectNames.forEach(name => {
+      UI.displayProjectTodos(name);
+    });
   }
 }

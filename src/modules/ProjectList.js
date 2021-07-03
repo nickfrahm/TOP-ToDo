@@ -22,7 +22,7 @@ export class ProjectList {
         })
     }
 
-    static getProjectToRemove(project) {
+    static getProject(project) {
         return ProjectList.projects.find((proj) => {
             return proj.name.toLowerCase() === project.toLowerCase();
         })
