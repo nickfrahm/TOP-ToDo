@@ -196,3 +196,9 @@ form > * {
     width: 60%;
     margin: auto;
 }
+
+.projects__projectContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}

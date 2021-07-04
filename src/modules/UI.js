@@ -24,9 +24,11 @@ export class UI {
         document.getElementById("home").classList.add("activeProject");
       } else {
         document.getElementById(name).classList.add("activeProject");
-      } 
+      }
     } else {
-      document.querySelector(".activeProject").classList.remove("activeProject");
+      document
+        .querySelector(".activeProject")
+        .classList.remove("activeProject");
       document.getElementById(name).classList.add("activeProject");
     }
   }
@@ -151,7 +153,7 @@ export class UI {
           document.getElementById("title").value.trim(),
           document.getElementById("description").value,
           document.getElementById("duedate").value,
-          document.getElementById("priority").value
+          document.getElementById("priority").value,
         ]);
       });
       form.appendChild(addBtn);
@@ -236,7 +238,10 @@ export class UI {
       alert("Please use a unique title.");
     } else {
       UI.clearToDos();
-      if (ProjectList.activeProject === 'home' || ProjectList.activeProject === 'default') {
+      if (
+        ProjectList.activeProject === "home" ||
+        ProjectList.activeProject === "default"
+      ) {
         UI.displayAllTodos();
       } else {
         UI.displayProjectTodos();
@@ -314,29 +319,47 @@ export class UI {
   }
 
   static createProjectElement(proj) {
+    const container = document.createElement("div");
+    container.classList.add("projects__projectContainer");
+    container.addEventListener("click", (e) => {
+      if (!e.target.classList.contains("fa-trash-alt")) {
+        UI.clearToDos();
+        UI.highlightActiveProjectName(proj.getName());
+        ProjectList.setActiveProject(proj.getName());
+        UI.changeProjectNameInToDoSection(ProjectList.activeProject);
+        UI.displayProjectTodos();
+        if (document.getElementById("addTodo").classList.contains("hide")) {
+          UI.toggleAddNewTodoBtn();
+        }
+      } else {
+        UI.removeProject(proj);
+        ProjectList.removeProjectFromProjects(proj);
+      }
+    });
+
     const project = document.createElement("p");
     project.className = "project";
     project.id = proj.getName();
     project.textContent = proj.getName();
-    project.addEventListener("click", () => {
-      UI.clearToDos();
-      UI.highlightActiveProjectName(proj.getName());
-      ProjectList.setActiveProject(proj.getName());
-      UI.changeProjectNameInToDoSection(ProjectList.activeProject);
-      UI.displayProjectTodos();
-      if (document.getElementById("addTodo").classList.contains("hide")) {
-        UI.toggleAddNewTodoBtn();
-      }
-    })
 
-    return project;
+    const trash = document.createElement("i");
+    trash.className = "fas fa-trash-alt text-p";
+
+    container.appendChild(project);
+    container.appendChild(trash);
+
+    return container;
   }
 
   static displayAllTodos() {
     const projectNames = ProjectList.getProjectNames();
 
-    projectNames.forEach(name => {
+    projectNames.forEach((name) => {
       UI.displayProjectTodos(name);
     });
+  }
+
+  static removeProject(project) {
+
   }
 }

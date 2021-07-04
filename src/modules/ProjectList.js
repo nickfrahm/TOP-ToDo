@@ -35,4 +35,8 @@ export class ProjectList {
     static setActiveProject(name) {
         ProjectList.activeProject = name;
     }
+
+    static removeProjectFromProjects(project) {
+        
+    }
 }
