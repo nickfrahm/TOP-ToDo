@@ -321,6 +321,7 @@ export class UI {
   static createProjectElement(proj) {
     const container = document.createElement("div");
     container.classList.add("projects__projectContainer");
+    container.id = proj.getName() + "_container";
     container.addEventListener("click", (e) => {
       if (!e.target.classList.contains("fa-trash-alt")) {
         UI.clearToDos();
@@ -334,6 +335,17 @@ export class UI {
       } else {
         UI.removeProject(proj);
         ProjectList.removeProjectFromProjects(proj);
+        UI.clearToDos();
+        if (proj.getName().toLowerCase() === ProjectList.activeProject.toLowerCase()) {
+          //clear and go to home project
+          UI.highlightActiveProjectName("default");
+          ProjectList.setActiveProject("default");
+          UI.changeProjectNameInToDoSection("default");
+          UI.displayAllTodos();
+        } else {
+          //refresh todos for active
+          UI.displayProjectTodos();
+        }
       }
     });
 
@@ -360,6 +372,7 @@ export class UI {
   }
 
   static removeProject(project) {
-
+    const proj = document.getElementById(project.getName()+"_container");
+    proj.remove();
   }
 }

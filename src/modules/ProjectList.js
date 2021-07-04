@@ -37,6 +37,10 @@ export class ProjectList {
     }
 
     static removeProjectFromProjects(project) {
-        
+        const index = ProjectList.projects.indexOf(project);
+
+        if (index !== -1) {
+            ProjectList.projects.splice(index, 1);
+        }
     }
 }
