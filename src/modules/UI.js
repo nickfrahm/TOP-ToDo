@@ -1,6 +1,7 @@
 import { Project } from "./Project";
 import { ToDo } from "./ToDo";
 import { ProjectList } from "./ProjectList";
+import { Storage } from "./Storage";
 
 export class UI {
   static handlePageLoad() {
@@ -187,6 +188,7 @@ export class UI {
         const proj = ProjectList.getProject(todo.getParent());
         proj.removeTask(todo);
         e.target.parentNode.parentNode.remove();
+        Storage.saveProjectsArrayToStorage();
       }
 
       if (
@@ -248,6 +250,7 @@ export class UI {
       }
       UI.toggleAddNewTodoBtn();
     }
+    Storage.saveProjectsArrayToStorage();
   }
 
   static toggleAddNewTodoBtn() {
@@ -282,6 +285,7 @@ export class UI {
         newProject.getName().toLowerCase() !== "default"
       ) {
         ProjectList.addProject(newProject);
+        Storage.saveProjectsArrayToStorage();
         UI.clearProjectUIList();
         UI.writeProjectsToUI();
         UI.toggleAddProjectBtn();
@@ -304,7 +308,7 @@ export class UI {
   }
 
   static writeProjectsToUI() {
-    const projects = [...ProjectList.projects];
+    const projects = ProjectList.projects//[...ProjectList.projects];
     projects.forEach((proj) => {
       if (proj.getName() !== "default") {
         const project = UI.createProjectElement(proj);
@@ -336,7 +340,10 @@ export class UI {
         UI.removeProject(proj);
         ProjectList.removeProjectFromProjects(proj);
         UI.clearToDos();
-        if (proj.getName().toLowerCase() === ProjectList.activeProject.toLowerCase()) {
+        if (
+          proj.getName().toLowerCase() ===
+          ProjectList.activeProject.toLowerCase()
+        ) {
           //clear and go to home project
           UI.highlightActiveProjectName("default");
           ProjectList.setActiveProject("default");
@@ -347,6 +354,7 @@ export class UI {
           UI.displayProjectTodos();
         }
       }
+      Storage.saveProjectsArrayToStorage();
     });
 
     const project = document.createElement("p");
@@ -372,7 +380,7 @@ export class UI {
   }
 
   static removeProject(project) {
-    const proj = document.getElementById(project.getName()+"_container");
+    const proj = document.getElementById(project.getName() + "_container");
     proj.remove();
   }
 }
