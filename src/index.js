@@ -6,7 +6,7 @@ import { UI } from './modules/UI';
 document.addEventListener("DOMContentLoaded", () => {
     if (Storage.getProjectsFromStorage()) {
         //handle retrieve from storage
-        ProjectList.projects = Storage.getProjectsFromStorage();
+        Storage.recreateProjectObjects();
         UI.displayAllTodos();
         UI.writeProjectsToUI();
     } else {
