@@ -22,11 +22,21 @@ colors:
 }
 
 .header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
     background-color: #1b1b1b;
     height: 60px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+.menu-icon {
+    margin-right: 25px;
+    color: #00c853;
+    font-size: 24px;
 }
 
 .header__title {
@@ -41,6 +51,8 @@ colors:
 .main {
     display: flex;
     min-height: calc(100vh - 60px);
+    position: relative;
+    top: 60px;
 }
 
 .nav {
@@ -205,5 +217,5 @@ form > * {
 
 /*create collapsible menu with media query*/
 @media (max-width: 750px) {
-    
+
 }
