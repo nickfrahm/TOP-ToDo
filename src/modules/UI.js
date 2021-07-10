@@ -49,18 +49,39 @@ export class UI {
 
   static addInitialEventListeners() {
     window.addEventListener("resize", () => {
-      const menuBtn = document.querySelector(".menu-icon-container");
-
-      if (UI.getWindowSize() < 751 && document.querySelector(".menu-icon-container").classList.contains("hide")) {
+      if (
+        UI.getWindowSize() < 751 &&
+        document
+          .querySelector(".menu-icon-container")
+          .classList.contains("hide") &&
+        !document.querySelector(".nav").classList.contains("hide")
+      ) {
         document.querySelector(".menu-icon-container").classList.toggle("hide");
-        const menuBtn = document.getElementById("menu-icon");
-        menuBtn.addEventListener("click", () => {
-          //open menu
-        });
-      } else if (UI.getWindowSize() > 751 && !document.querySelector(".menu-icon-container").classList.contains("hide")) {
-        document.querySelector(".menu-icon-container").classList.toggle("hide");    
-    }
-    })
+        document.querySelector(".nav").classList.toggle("hide");
+      } else if (
+        UI.getWindowSize() > 751 &&
+        !document
+          .querySelector(".menu-icon-container")
+          .classList.contains("hide") &&
+        document.querySelector(".nav").classList.contains("hide")
+      ) {
+        document.querySelector(".menu-icon-container").classList.toggle("hide");
+        document.querySelector(".nav").classList.toggle("hide");
+      } else if (
+        UI.getWindowSize() > 751 &&
+        !document
+          .querySelector(".menu-icon-container")
+          .classList.contains("hide") &&
+        !document.querySelector(".nav").classList.contains("hide")
+      ) {
+        document.querySelector(".menu-icon-container").classList.toggle("hide");
+      }
+    });
+
+    const menuBtn = document.getElementById("menu-icon");
+    menuBtn.addEventListener("click", () => {
+      document.querySelector(".nav").classList.toggle("hide");
+    });
 
     const addProjectBtn = document.getElementById("addProject");
     addProjectBtn.addEventListener("click", () => {
@@ -326,7 +347,7 @@ export class UI {
   }
 
   static writeProjectsToUI() {
-    const projects = ProjectList.projects//[...ProjectList.projects];
+    const projects = ProjectList.projects; //[...ProjectList.projects];
     projects.forEach((proj) => {
       if (proj.getName() !== "default") {
         const project = UI.createProjectElement(proj);
