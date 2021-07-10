@@ -43,7 +43,25 @@ export class UI {
     });
   }
 
+  static getWindowSize() {
+    return window.innerWidth;
+  }
+
   static addInitialEventListeners() {
+    window.addEventListener("resize", () => {
+      const menuBtn = document.querySelector(".menu-icon-container");
+
+      if (UI.getWindowSize() < 751 && document.querySelector(".menu-icon-container").classList.contains("hide")) {
+        document.querySelector(".menu-icon-container").classList.toggle("hide");
+        const menuBtn = document.getElementById("menu-icon");
+        menuBtn.addEventListener("click", () => {
+          //open menu
+        });
+      } else if (UI.getWindowSize() > 751 && !document.querySelector(".menu-icon-container").classList.contains("hide")) {
+        document.querySelector(".menu-icon-container").classList.toggle("hide");    
+    }
+    })
+
     const addProjectBtn = document.getElementById("addProject");
     addProjectBtn.addEventListener("click", () => {
       UI.toggleAddProjectBtn();

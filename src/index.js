@@ -15,4 +15,9 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     UI.handlePageLoad();
+    if (UI.getWindowSize() < 751 && document.querySelector(".menu-icon-container").classList.contains("hide")) {
+        document.querySelector(".menu-icon-container").classList.toggle("hide");    
+    } else if (UI.getWindowSize() > 751 && !document.querySelector(".menu-icon-container").classList.contains("hide")) {
+        document.querySelector(".menu-icon-container").classList.toggle("hide");    
+    }
 })
